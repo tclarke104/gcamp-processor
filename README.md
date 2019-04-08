@@ -3,12 +3,13 @@ Automatically process gcamp videos
 
 ## Installation (Windows)
 Install python 3.7 from [here](https://www.python.org/downloads/)
+
 Install git from [here](https://git-scm.com/download/win)
 
 Open cmd prompt and run the following commands:
 - Clone the repo
 ```
-git clone https://github.com/tclarke104/gcamp-proccessor.git
+git clone https://github.com/tclarke104/gcamp-processor.git
 ```
 - Change directory into project
 ```
