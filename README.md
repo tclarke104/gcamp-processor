@@ -8,7 +8,7 @@ Install git from [here](https://git-scm.com/download/win)
 Open cmd prompt and run the following commands:
 - Clone the repo
 ```
-git clone
+git clone https://github.com/tclarke104/gcamp-proccessor.git
 ```
 - Change directory into project
 ```
