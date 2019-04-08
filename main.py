@@ -14,7 +14,7 @@ from skimage.color import label2rgb
 import matplotlib.patches as mpatches
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename, askdirectory
-from pyfnnd import deconvolve
+# from pyfnnd import deconvolve
 
 Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
 filename = askopenfilename(title='Select a file to process')
@@ -102,32 +102,32 @@ while True:
 
 
 neurons_df_f = {}
-neurons_deconv = {}
+# neurons_deconv = {}
 
 for i, neuron in enumerate(neurons.keys()):
     baseline = np.mean(neurons[neuron][100:200])
     df_f = (neurons[neuron]-baseline)/baseline
     neurons_df_f[neuron] = df_f
-    n_best, c_best, LL, theta_best = deconvolve(np.array(df_f), dt=0.1, verbosity=0, learn_theta=(0, 1, 1, 1, 0) )
-    neurons_deconv[neuron] = n_best
+    # n_best, c_best, LL, theta_best = deconvolve(np.array(df_f), dt=0.1, verbosity=0, learn_theta=(0, 1, 1, 1, 0) )
+    # neurons_deconv[neuron] = n_best
 
 workbook = xlsxwriter.Workbook(f'{filename}-results.xlsx')
 raw_worksheet = workbook.add_worksheet('Raw')
 subtracted_worksheet = workbook.add_worksheet('Subtracted')
 df_f_worksheet = workbook.add_worksheet('DF_F')
-deconvolved_worksheet = workbook.add_worksheet('Deconvolved')
+# deconvolved_worksheet = workbook.add_worksheet('Deconvolved')
 
 
 raw_worksheet.write_row(map(lambda num: f'Neuron {num}', neurons.keys()))
 subtracted_worksheet.write_row(map(lambda num: f'Neuron {num}', neurons.keys()))
 df_f_worksheet.write_row(map(lambda num: f'Neuron {num}', neurons.keys()))
-deconvolved_worksheet.write_row(map(lambda num: f'Neuron {num}', neurons.keys()))
+# deconvolved_worksheet.write_row(map(lambda num: f'Neuron {num}', neurons.keys()))
 
 numFrames = len(neurons[0])
 for neuron in neurons.keys():
     raw_worksheet.write_column(1, neuron, neurons[neuron])
     subtracted_worksheet.write_column(1, neuron, neurons_subtracted[neuron])
     df_f_worksheet.write_column(1, neuron, neurons_df_f[neuron])
-    deconvolved_worksheet.write_column(1, neuron, neurons_deconv[neuron])
+    # deconvolved_worksheet.write_column(1, neuron, neurons_deconv[neuron])
 
 workbook.close()
