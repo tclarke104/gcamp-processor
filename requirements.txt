@@ -1,0 +1,8 @@
+opencv-python
+numpy
+matplotlib
+tqdm
+pyfnnd
+xlsxwriter
+scikit-image
+scipy
