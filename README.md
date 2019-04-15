@@ -3,7 +3,7 @@ Automatically process gcamp videos
 
 ## Installation (Windows)
 Install python 3.7 from [here](https://www.python.org/downloads/)
-- When installing make sure you check the add to environment variables box. All other defaults should be fine.
+- When installing make sure you check "Add Python 3.7 to Path". All other defaults should be fine.
 
 Install git from [here](https://git-scm.com/download/win)
 
