@@ -24,8 +24,7 @@ pip3 install -r requirements.txt
 ## Using program
 - Use python to call main.py (make sure you changed directory into the project)
 ```
-python3 main.py
+python main.py
 ```
 - A window will pop up prompting you to select a file to process
-- Then a window will pop up asking for a save directory
-- The program will run and then save an image with labels and an excel sheet with the data in the output dir.
+- The program will run and then save an image with labels and an excel sheet with the data same directory as the video
