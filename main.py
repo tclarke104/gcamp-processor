@@ -5,12 +5,13 @@ from matplotlib import pyplot as plt
 from skimage import img_as_float
 from skimage.morphology import reconstruction
 from skimage.morphology import dilation, disk
-from skimage.filters import threshold_triangle
+from skimage.filters import threshold_li, try_all_threshold
 import xlsxwriter
 from skimage.measure import label, regionprops
 from skimage.morphology import remove_small_objects
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+from utils import plot_comparison
 # from pyfnnd import deconvolve
 
 Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
@@ -36,6 +37,8 @@ while True:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # take the maximum picture values from the accumlated max image and the current image
         max_image = np.maximum(frame, max_image)
+        # cv2.imshow('video', frame)
+        # cv2.waitKey(1)
         frame_number += 1
     else:
         print(f'Captured {frame_number} frames')
@@ -55,6 +58,8 @@ mask = image
 # run dilation reconstruction on image. This contains the background.
 dilated = reconstruction(seed, mask, method='dilation')
 
+
+
 # subtract the dilated background image from the image
 subtracted = image - dilated
 
@@ -65,8 +70,10 @@ selem = disk(3)
 dilated = dilation(subtracted, selem)
 
 # perform threshold on the image using triangle
-thresh = threshold_triangle(dilated)
+thresh = threshold_li(dilated)
 binary = dilated > thresh
+fig, ax = try_all_threshold(dilated, figsize=(10, 8), verbose=False)
+plt.show()
 
 # label discrete objects and assign each labeled area a number.
 label_image = label(binary)
@@ -80,6 +87,7 @@ kernel = disk(45)
 neuropils = dilation(label_image, kernel)
 # subtract neuron from dilation to get just the neuron
 neuropils = neuropils - label_image
+
 
 print('neuropils and neurons identified')
 
@@ -115,8 +123,6 @@ while True:
 # init dictionary for dF_f
 neurons_df_f = {}
 # neurons_deconv = {}
-plt.plot(neurons['Neuron 0'])
-plt.show()
 
 for i, neuron in enumerate(neurons.keys()):
     baseline = np.mean(neurons[neuron][100:200])
