@@ -72,8 +72,6 @@ dilated = dilation(subtracted, selem)
 # perform threshold on the image using triangle
 thresh = threshold_li(dilated)
 binary = dilated > thresh
-fig, ax = try_all_threshold(dilated, figsize=(10, 8), verbose=False)
-plt.show()
 
 # label discrete objects and assign each labeled area a number.
 label_image = label(binary)
